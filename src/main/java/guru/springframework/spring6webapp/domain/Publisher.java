@@ -1,9 +1,13 @@
 package guru.springframework.spring6webapp.domain;
 
+import java.util.Set;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Publisher {
@@ -11,12 +15,15 @@ public class Publisher {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
     private String publisherName;
     private String address;
     private String city;
     private String state;
     private String zip;
-
+    
+    @OneToMany(mappedBy = "publisher")
+    private Set<Book> books;
 
     public String getPublisherName() {
         return publisherName;
@@ -55,9 +62,15 @@ public class Publisher {
         this.id = id;
     }
 
+    public Set<Book> getBooks() {
+        return books;
+    }
+    public void setBooks(Set<Book> books) {
+        this.books = books;
+    }
+
     @Override
     public int hashCode() {
-
         return getId() != null ? getId().hashCode() : 0; 
     }
 
@@ -76,6 +89,7 @@ public class Publisher {
         return "Publisher [id=" + id + ", publisherName=" + publisherName + ", address=" + address + ", city=" + city
                 + ", state=" + state + ", zip=" + zip + "]";
     }
+
 
     
     

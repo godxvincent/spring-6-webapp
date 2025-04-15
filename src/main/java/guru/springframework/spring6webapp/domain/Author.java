@@ -1,13 +1,12 @@
 package guru.springframework.spring6webapp.domain;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 
 @Entity
@@ -19,10 +18,9 @@ public class Author {
     private String firstName;
     private String lastName;
 
+    // authors is the name of the variable defined in the Book class.
     @ManyToMany(mappedBy = "authors")
-    @JoinTable(name = "author_book", joinColumns = @JoinColumn(name="book_id"), inverseJoinColumns = @JoinColumn(name="author_id"))
-
-    private Set<Book> books; 
+    private Set<Book> books = new HashSet<>(); 
 
     public Set<Book> getBooks() {
         return books;
